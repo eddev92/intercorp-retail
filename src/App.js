@@ -8,52 +8,67 @@ import {
 	hiddenAddClient,
 	handleChange,
 	addClient,
-	deleteClient
+	deleteClient,
+	resetValues,
+	updateClients
 } from './redux/actions';
 import config from './config';
 import HomeComponent from './components/home';
 import ListComponent from './components/shared/list';
 // import { USER_CREDENTIALS } from './constants/constants';
-// import LaboratoriaServices from './services/services';
+import IntercorpRetailServices from './services/services';
 
-// firebase.initializeApp(config);
-// const publicationRef = firebase.database();
-// const ref =	publicationRef.ref('/');
-const storage = window.localStorage;
+firebase.initializeApp(config);
+const publicationRef = firebase.database();
+const ref =	publicationRef.ref('/');
+// const storage = window.localStorage;
 
 class App extends Component {
   constructor(props) {
     super(props);
 
 		this.state = {
-			publications: [],
-			ids: [],
-			userNameStoraged: '',
-			passwordStoraged: ''
+			clients: [],
+			ids: []
 		};
 	}
 	componentDidMount() {
 			// this.validateLogin();
+			this.getClientsFirebase();
 	}
 	componentWillMount() {
 
 	}
   componentDidUpdate() {
 		console.log(this.props.clients)
+		if (this.props.clients && this.props.clients.length) {
+			this.calculateEstimatedAge()
+		}
 		
 	}
-	// getPublicationFirebase = () => {
-	// 	ref.on("value", (snapshot) => {
-	// 		if (snapshot.val() !== null) {
-	// 			return this.setState({publications: Object.values(snapshot.val()), ids: Object.keys(Object.values(snapshot.val())[0]) }, () => {
-	// 				this.props.publicationsLoaded();
-	// 			})
-	// 		}
-	// 		return this.setState({publications: []})
-	// 	}, (error) => {
-	// 		console.log("ERROR: " + error.code);
-	// 	});
-	// }
+	getClientsFirebase = () => {
+		ref.on("value", (snapshot) => {
+			if (snapshot.val() !== null) {
+				let clientsAux = Object.values(snapshot.val()) && Object.values(snapshot.val())[0];
+				clientsAux = Object.values(clientsAux)
+				const idsAux = Object.keys(Object.values(snapshot.val())[0]);
+				console.log(idsAux)
+				clientsAux = clientsAux.map((client, index) => {
+					if (idsAux && idsAux.length) {
+							// idsAux.forEach(id => {
+							client.client.id = idsAux[index]
+							// })
+					}
+					return client.client;
+				})
+				console.log(clientsAux)
+				return this.props.updateClients(clientsAux)
+			}
+			return this.props.updateClients([])
+		}, (error) => {
+			console.log("ERROR: " + error.code);
+		});
+	}
 	handleChange = (e) => {
 		console.log(e)
 		if (e) {
@@ -71,23 +86,47 @@ class App extends Component {
 		return this.props.hiddenAddClient()
 	}
 	addClient = () => {
-		return this.props.addClientForm(this.props.client)
+		if (this.props.client &&
+			this.props.client.names &&
+			this.props.client.lastNames &&
+			this.props.client.age &&
+			this.props.client.date) {
+				const service = new IntercorpRetailServices(ref);
+				
+				this.props.resetValues();
+				return service.saveClient(this.props.client)
+			}
+			else return alert('Todos los campos son requeridos')
 	}
-	// deletePublication = (publication) => {
-	// 	const service = new LaboratoriaServices(ref);
-
-	// 	this.props.deletePublication(publication);
-	// 	return	service.deletePublicationDB(publication);
-	// }
 	deleteClient = (client, position) => {
-		return this.props.deleteClient(client, position);
+		const service = new IntercorpRetailServices(ref);
+	
+		this.props.deleteClient(client, position);
+		return service.deleteClientDB(client);
 	}
 
-	
+	calculateEstimatedAge = () => {
+		if (this.props.clients) {
+			const ages = this.props.clients.map(client => {
+				client.age = Number(client.age);
+				return client.age;
+			})
+			if (ages.length > 0) {
+				const acum = ages.reduce((a,b) => a + b);
+				console.log(acum)
+				return acum/this.props.clients.length;
+			}
+		}
+		return null;
+	}
+
   render() {
     const { client, showAdd, clients } = this.props;
 		console.log(clients)
-
+		console.log(this.state.clients)
+		console.log(this.state.ids)
+		const ageAverage = this.calculateEstimatedAge();
+		console.log(ageAverage)
 		return (
 			<div className="App container-fluid" 
 			>
@@ -100,7 +139,7 @@ class App extends Component {
             </div>
           </div>
           <div className="col-6 left-side">
-						<span>EL promedio de edad es de: 24</span>
+						{ageAverage && <span>EL promedio de edad es de: {ageAverage}</span>}
             <ListComponent clients={clients} deleteClient={this.deleteClient} />
           </div>
         </div>		
@@ -124,6 +163,8 @@ const mapDispatchToProps = (dispatch) => {
 		handleChange: (value, id) => { dispatch(handleChange(value, id)) },
 		addClientForm: (client) => { dispatch(addClient(client)) },
 		deleteClient: (client, position) => { dispatch(deleteClient(client, position)) },
+		resetValues: () => { dispatch(resetValues()) },
+		updateClients: (newListClients) => { dispatch(updateClients(newListClients)) },
     }
 }
 

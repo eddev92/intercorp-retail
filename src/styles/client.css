@@ -6,6 +6,7 @@
 .main-client-card .info-client-card span {
   display: block;
   text-align: left;
+  font-size: 0.8em;
 }
 .main-client-card .row {
   margin: 5px !important;

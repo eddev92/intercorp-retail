@@ -3,7 +3,7 @@ export const defaultValues = {
   client: {
     names: '',
     lastNames: '',
-    age: null,
+    age: '',
     date: '',
     position: null
   },

@@ -1,22 +1,22 @@
-class LaboratoriaServices {
+class IntercorpRetailServices {
   constructor(ref) {
     this.ref = ref;
   }
-	deletePublicationDB = (publication) => {
-		const publicationsRef = this.ref.child("publications");
-		return publicationsRef.child(publication.id).remove();
+	deleteClientDB = (client) => {
+		const clientsRef = this.ref.child("clients");
+		return clientsRef.child(client.id).remove();
   }
   
-	updatePublicationDB = (id, newPublication) => {
-		const publicationsRef = this.ref.child("publications");
+	updateClientDB = (id, client) => {
+		const clientsRef = this.ref.child("clients");
 
-		return publicationsRef.child(id).child('publication').update(newPublication);
+		return clientsRef.child(id).child('client').update(client);
   }
   
-  savePublication = (publication) => {
-		const publicationsRef = this.ref.child("publications");
-		return publicationsRef.push({publication});
+  saveClient = (client) => {
+		const clientsRef = this.ref.child("clients");
+		return clientsRef.push({client});
 	}
 }
 
-export default LaboratoriaServices;
+export default IntercorpRetailServices;

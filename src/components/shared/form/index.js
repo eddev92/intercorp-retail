@@ -22,7 +22,7 @@ const FormComponent = ({ newClient = {}, hiddenAddClient = () => {}, handleChang
   <div class="form-group row">
     <label for="colFormLabel" class="col-sm-2 col-form-label">Edad</label>
     <div class="col-sm-10">
-      <input type="number" class="form-control" onChange={handleChange.bind(this)} value={newClient.age} id="age" placeholder=""/>
+      <input type="number" maxLength={2} class="form-control" onChange={handleChange.bind(this)} value={newClient.age} id="age" placeholder=""/>
     </div>
   </div>
   <div class="form-group row">

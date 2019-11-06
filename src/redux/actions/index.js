@@ -1,5 +1,5 @@
 import { 
-  CLIENT_ACTION,
+  CLIENT_ACTION, RESET_VALUES,
 } from "../../constants/actions";
 
 export const addClient = (client) => {
@@ -34,4 +34,18 @@ export const handleChange = (value, id) => {
       clientSelected: client,
       positionSelected: position
     }
-}
+  }
+
+  export const resetValues = () => {
+    return {
+      type: RESET_VALUES.RESET_CLIENT_VALUES
+    }
+  }
+
+  export const updateClients = (newListClients) => {
+    return {
+      type: CLIENT_ACTION.CLIENT_ACTION_UPDATE_CLIENTS,
+      newListClients
+    }
+  }
+

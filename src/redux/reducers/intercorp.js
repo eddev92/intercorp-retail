@@ -1,4 +1,4 @@
-import { CLIENT_ACTION } from "../../constants/actions";
+import { CLIENT_ACTION, RESET_VALUES } from "../../constants/actions";
 import { defaultValues } from "../../constants/constants";
 
 let defaultState = defaultValues;
@@ -20,6 +20,11 @@ const intercorp = (state = defaultState, action) => {
         ...state,
         showAdd: false
       }
+    case CLIENT_ACTION.CLIENT_ACTION_UPDATE_CLIENTS:
+        return {
+          ...state,
+          clients: action.newListClients
+        }
     case CLIENT_ACTION.CLIENT_ACTION_ADD_CLIENT: {
         const aux = [ ...state.clients ];
         aux.push(action.client);
@@ -51,6 +56,11 @@ const intercorp = (state = defaultState, action) => {
         ...state,
         clients: aux
       }
+    }
+    case RESET_VALUES.RESET_CLIENT_VALUES: 
+    return {
+      ...state,
+      client: defaultState.client
     }
     default:
       return state
