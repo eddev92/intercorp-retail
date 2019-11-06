@@ -92,6 +92,7 @@ class App extends Component {
 				const service = new IntercorpRetailServices(ref);
 				
 				this.props.resetValues();
+				this.props.hiddenAddClient();
 				return service.saveClient(this.props.client)
 			}
 			else return alert('Todos los campos son requeridos')
