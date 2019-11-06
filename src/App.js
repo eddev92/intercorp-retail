@@ -21,7 +21,6 @@ import IntercorpRetailServices from './services/services';
 firebase.initializeApp(config);
 const publicationRef = firebase.database();
 const ref =	publicationRef.ref('/');
-// const storage = window.localStorage;
 
 class App extends Component {
   constructor(props) {
@@ -33,14 +32,9 @@ class App extends Component {
 		};
 	}
 	componentDidMount() {
-			// this.validateLogin();
 			this.getClientsFirebase();
 	}
-	componentWillMount() {
-
-	}
   componentDidUpdate() {
-		console.log(this.props.clients)
 		if (this.props.clients && this.props.clients.length) {
 			this.calculateEstimatedAge()
 		}
@@ -52,16 +46,17 @@ class App extends Component {
 				let clientsAux = Object.values(snapshot.val()) && Object.values(snapshot.val())[0];
 				clientsAux = Object.values(clientsAux)
 				const idsAux = Object.keys(Object.values(snapshot.val())[0]);
-				console.log(idsAux)
+
 				clientsAux = clientsAux.map((client, index) => {
 					if (idsAux && idsAux.length) {
-							// idsAux.forEach(id => {
-							client.client.id = idsAux[index]
-							// })
+						let dateAux = client.client.date.split("-");
+							client.client.id = idsAux[index];
+							dateAux = dateAux.reverse();
+							dateAux = dateAux.join("-");
+							client.client.date = dateAux;
 					}
 					return client.client;
 				})
-				console.log(clientsAux)
 				return this.props.updateClients(clientsAux)
 			}
 			return this.props.updateClients([])
@@ -70,11 +65,10 @@ class App extends Component {
 		});
 	}
 	handleChange = (e) => {
-		console.log(e)
 		if (e) {
-			// this.props.resetOptionSelected();
 			const value = e.target.value;
 			const id = e.target.id;
+
 			return this.props.handleChange(value, id);
 		}
 		return null;
@@ -113,34 +107,32 @@ class App extends Component {
 			})
 			if (ages.length > 0) {
 				const acum = ages.reduce((a,b) => a + b);
-				console.log(acum)
+
 				return acum/this.props.clients.length;
 			}
 		}
 		return null;
 	}
-
+	showProbability = (client) => {
+		return alert(`La probabilidad de muerte de esta persona es dentro de ${75 - client.age} años`)
+	}
   render() {
     const { client, showAdd, clients } = this.props;
-		console.log(clients)
-		console.log(this.state.clients)
-		console.log(this.state.ids)
 		const ageAverage = this.calculateEstimatedAge();
-		console.log(ageAverage)
+
 		return (
 			<div className="App container-fluid" 
 			>
         <div className="row">
-          <div className="col-6">
+          <div className="col-xs-12 col-sm-12 col-md-6">
             <HomeComponent client={client} showAddClient={showAdd} hiddenAddClient={this.hiddenAddClientForm} handleChange={this.handleChange} addClient={this.addClient} />
             <div className="row buttons">
-              {!showAdd && <button class="add-client" onClick={this.showAddClientForm}>AGREGAR CLIENTE</button>}
-              {/* <button class="add-client" onClick={this.toggleAddClient}>CANCELAR</button> */}
+              {!showAdd && <button className="add-client" onClick={this.showAddClientForm}>AGREGAR CLIENTE</button>}
             </div>
           </div>
-          <div className="col-6 left-side">
-						{ageAverage && <span>EL promedio de edad es de: {ageAverage}</span>}
-            <ListComponent clients={clients} deleteClient={this.deleteClient} />
+          <div className="col-xs-12 col-sm-12 col-md-6 left-side">
+						{ageAverage && <span>EL promedio de edad es de: {Math.round(ageAverage)}</span>}
+            <ListComponent clients={clients} deleteClient={this.deleteClient} showProbability={this.showProbability} />
           </div>
         </div>		
   		</div>

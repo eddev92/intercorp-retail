@@ -4,9 +4,7 @@ import '../../../styles/form.css';
 const FormComponent = ({ newClient = {}, hiddenAddClient = () => {}, handleChange = () => {}, addClient = () => {} }) => {
   return (
     <div className="main-new-client">
-      <div className="row img-client">
-        <img src="images/img_avatar.png" />
-      </div>
+          <h5>REGISTRO DE CLIENTE</h5>
         <div class="form-group row">
     <label for="colFormLabel" class="col-sm-2 col-form-label">Nombres</label>
     <div class="col-sm-10">

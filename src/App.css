@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  margin-top: 50px;
 }
 
 .App-logo {
@@ -35,7 +36,6 @@
 
 .left-side {
   border-left: 1px solid #bbb;
-  margin-top: 40px;
 }
 .App .buttons {
   margin-top: 50px;

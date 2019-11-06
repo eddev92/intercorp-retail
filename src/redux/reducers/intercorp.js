@@ -5,11 +5,6 @@ let defaultState = defaultValues;
 
 const intercorp = (state = defaultState, action) => {
   switch (action.type) {
-    // case CLIENT_ACTION.CLIENT_ACTION_ADD_CLIENT:
-    // return {
-    //   ...state,
-    //   // client: 
-    // }
     case CLIENT_ACTION.CLIENT_ACTION_SHOW_ADD_CLIENT:
       return {
         ...state,
@@ -27,8 +22,9 @@ const intercorp = (state = defaultState, action) => {
         }
     case CLIENT_ACTION.CLIENT_ACTION_ADD_CLIENT: {
         const aux = [ ...state.clients ];
+
         aux.push(action.client);
-      console.log(action.client)
+
         return {
           ...state,
           clients: aux
@@ -36,6 +32,7 @@ const intercorp = (state = defaultState, action) => {
       }
     case CLIENT_ACTION.CLIENT_ACTION_HANDLE_INFO_CLIENT: {
       const aux = {  ...state.client };
+
       aux[action.id] = action.value;
       return {
         ...state,
@@ -44,6 +41,7 @@ const intercorp = (state = defaultState, action) => {
     }
     case CLIENT_ACTION.CLIENT_ACTION_DELETE_CLIENT: {
       const aux = [ ...state.clients ];
+
       for (let i = 0; i < aux.length; i++) {
         if ((aux[i].names === action.clientSelected.names) &&
             (aux[i].lastNames === action.clientSelected.lastNames) &&
