@@ -1,7 +1,7 @@
 .main-client-card img {
-  /* border-radius: 50%; */
-  height: 98px;
-  margin: 20px auto;
+  height: auto;
+  width: 100%;
+  margin: 10px auto;
 }
 .main-client-card .info-client-card span {
   display: block;

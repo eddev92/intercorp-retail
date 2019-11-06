@@ -15,8 +15,8 @@ const ClientComponent = ({ position = null,  client = { names: '', lastNames: ''
           <span>Fecha de nacimiento: {client.date}</span>
         </div>
         <div className="row">
-        <button className="col-5" onClick={showProbability.bind(this, client)}>PROBABILIDAD DE MUERTE</button>
-        <button className="col-5" onClick={deleteClient.bind(this, client, position)}>ELIMINAR CLIENTE</button>
+        <button className="col-12" style={{'marginBottom': '5px'}} onClick={showProbability.bind(this, client)}>PROBABILIDAD DE MUERTE</button>
+        <button className="col-12" onClick={deleteClient.bind(this, client, position)}>ELIMINAR CLIENTE</button>
         </div>
       </div>
     </li>
