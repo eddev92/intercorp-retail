@@ -2,8 +2,13 @@ import React from 'react';
 import ClientComponent from '../client';
 import '../../../styles/list.css';
 
-const ListComponent = ({ clients = [1,2,3,4,5,6,7,8,9] }) => {
-  const list = clients.map(client => <ClientComponent client={client}/>)
+const ListComponent = ({ clients = [], deleteClient = () => {} }) => {
+  const list = clients.map((client, index) => <ClientComponent position={index} client={client} deleteClient={deleteClient} />)
+  if (clients.length === 0) return (
+    <div className="empty-clients">
+      NO EXISTEN CLIENTES REGISTRADOS
+    </div>
+  )
     return (
     <ul className="main-list-clients">
       {

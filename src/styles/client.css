@@ -1,5 +1,16 @@
 .main-client-card img {
   /* border-radius: 50%; */
   height: 98px;
+  margin: 20px auto;
+}
+.main-client-card .info-client-card span {
+  display: block;
+  text-align: left;
+}
+.main-client-card .row {
+  margin: 5px !important;
+}
+.main-client-card .row button {
+  font-size: 0.7em;
   margin: auto;
 }

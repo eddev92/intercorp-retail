@@ -2,7 +2,7 @@
   border: 1px solid #bbb;
   border-radius: 4px;
   margin: 2% 10%;
-  height: 100px;
+  height: 140px;
  }
  .section-img {
    border-right: 1px solid #bbb;
@@ -11,5 +11,14 @@
  ul.main-list-clients {
   max-height: 450px;
   overflow-y: auto;
-  margin-top: 50px;
+  margin-top: 20px;
+ }
+ ul.main-list-clients li {
+   /* display: block; */
+ }
+ .empty-clients {
+  border: 1px solid black;
+  margin: 50px;
+  padding: 50px;
+  font-size: 1.6em;
  }

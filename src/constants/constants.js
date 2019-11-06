@@ -4,7 +4,9 @@ export const defaultValues = {
     names: '',
     lastNames: '',
     age: null,
-    date: ''
+    date: '',
+    position: null
   },
+  clients: [],
   showAdd: false
 }

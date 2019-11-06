@@ -2,9 +2,12 @@
   border: 1px solid #bbb;
   padding: 10px 30px 15px;
   max-width: 400px;
-  margin: auto;
+  margin: 40px auto;
   font-size: 0.8em;
 }
 .img-client {
   margin-bottom: 20px;
+}
+.main-new-client button {
+  margin: auto;
 }

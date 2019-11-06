@@ -2,13 +2,18 @@ import React from 'react';
 import FormComponent from '../shared/form';
 import './../../styles/home.css';
 
-const HomeComponent = ({ showAddClient = false, client = {} , hiddenAddClient = () => {}}) => {
+const HomeComponent = ({ showAddClient = false, client = {} , hiddenAddClient = () => {}, handleChange = () => {}, addClient = () => {} }) => {
   console.log(showAddClient)
-  if (showAddClient) return <FormComponent newClient={client} hiddenAddClient={hiddenAddClient}/>
+  // if (showAddClient) return 
 
   return (
-    <div>
-      BIENVENIDO AL SISTEMA DE CLIENTE INTERCORP RETAIL
+    <div className="main-home">
+      <span>
+         BIENVENIDO AL SISTEMA DE CLIENTE INTERCORP RETAIL
+      </span>
+      {
+        showAddClient && <FormComponent newClient={client} hiddenAddClient={hiddenAddClient} handleChange={handleChange} addClient={addClient} />
+      }
     </div>
   )
 }

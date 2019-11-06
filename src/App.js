@@ -5,7 +5,10 @@ import './App.css';
 import firebase from 'firebase';
 import { 
 	showAddClient,
-	hiddenAddClient
+	hiddenAddClient,
+	handleChange,
+	addClient,
+	deleteClient
 } from './redux/actions';
 import config from './config';
 import HomeComponent from './components/home';
@@ -36,6 +39,7 @@ class App extends Component {
 
 	}
   componentDidUpdate() {
+		console.log(this.props.clients)
 		
 	}
 	// getPublicationFirebase = () => {
@@ -51,8 +55,9 @@ class App extends Component {
 	// 	});
 	// }
 	handleChange = (e) => {
+		console.log(e)
 		if (e) {
-			this.props.resetOptionSelected();
+			// this.props.resetOptionSelected();
 			const value = e.target.value;
 			const id = e.target.id;
 			return this.props.handleChange(value, id);
@@ -65,31 +70,38 @@ class App extends Component {
 	hiddenAddClientForm = () => {
 		return this.props.hiddenAddClient()
 	}
+	addClient = () => {
+		return this.props.addClientForm(this.props.client)
+	}
 	// deletePublication = (publication) => {
 	// 	const service = new LaboratoriaServices(ref);
 
 	// 	this.props.deletePublication(publication);
 	// 	return	service.deletePublicationDB(publication);
 	// }
-
+	deleteClient = (client, position) => {
+		return this.props.deleteClient(client, position);
+	}
 
 	
   render() {
-    const { client, showAdd } = this.props;
+    const { client, showAdd, clients } = this.props;
+		console.log(clients)
 
 		return (
 			<div className="App container-fluid" 
 			>
         <div className="row">
-          <div className="col-6">            
-            <HomeComponent newClient={client} showAddClient={showAdd} hiddenAddClient={this.hiddenAddClientForm} />
+          <div className="col-6">
+            <HomeComponent client={client} showAddClient={showAdd} hiddenAddClient={this.hiddenAddClientForm} handleChange={this.handleChange} addClient={this.addClient} />
             <div className="row buttons">
-              <button class="add-client" onClick={this.showAddClientForm}>AGREGAR CLIENTE</button>
+              {!showAdd && <button class="add-client" onClick={this.showAddClientForm}>AGREGAR CLIENTE</button>}
               {/* <button class="add-client" onClick={this.toggleAddClient}>CANCELAR</button> */}
             </div>
           </div>
-          <div className="col-6">
-            <ListComponent />
+          <div className="col-6 left-side">
+						<span>EL promedio de edad es de: 24</span>
+            <ListComponent clients={clients} deleteClient={this.deleteClient} />
           </div>
         </div>		
   		</div>
@@ -100,7 +112,8 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
 		client: state.intercorp.client,
-		showAdd: state.intercorp.showAdd
+		clients: state.intercorp.clients,
+		showAdd: state.intercorp.showAdd,
   } 
 }
 
@@ -108,6 +121,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
 		showAddClient: () => { dispatch(showAddClient()) },
 		hiddenAddClient: () => { dispatch(hiddenAddClient()) },
+		handleChange: (value, id) => { dispatch(handleChange(value, id)) },
+		addClientForm: (client) => { dispatch(addClient(client)) },
+		deleteClient: (client, position) => { dispatch(deleteClient(client, position)) },
     }
 }
 

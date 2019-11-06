@@ -2,16 +2,16 @@ import {
   CLIENT_ACTION,
 } from "../../constants/actions";
 
-// export const addClient = (newClient) => {
-//   return {
-//     type: CLIENT_ACTION.ADD_CLIENT,
-//     newClient,
-//   }
-// }
+export const addClient = (client) => {
+  return {
+    type: CLIENT_ACTION.CLIENT_ACTION_ADD_CLIENT,
+    client,
+  }
+}
 
 export const showAddClient = () => {
   return {
-    type: CLIENT_ACTION.CLIENT_ACTION_ADD_CLIENT
+    type: CLIENT_ACTION.CLIENT_ACTION_SHOW_ADD_CLIENT
   }
 }
 
@@ -21,3 +21,17 @@ export const hiddenAddClient = () => {
   }
 }
 
+export const handleChange = (value, id) => {
+  return {
+    type: CLIENT_ACTION.CLIENT_ACTION_HANDLE_INFO_CLIENT,
+    value,
+    id
+  }
+}
+  export const deleteClient = (client, position) => {
+    return {
+      type: CLIENT_ACTION.CLIENT_ACTION_DELETE_CLIENT,
+      clientSelected: client,
+      positionSelected: position
+    }
+}

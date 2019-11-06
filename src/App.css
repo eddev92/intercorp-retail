@@ -24,9 +24,20 @@
 .buttons button {
   width: 100%;
   margin: 5% 17%;
+  height: 50px;
 }
 
 .img-client img {
   border-radius: 50%;
   height: 70px;
+  margin: auto;
+}
+
+.left-side {
+  border-left: 1px solid #bbb;
+  margin-top: 40px;
+}
+.App .buttons {
+  margin-top: 50px;
+
 }
