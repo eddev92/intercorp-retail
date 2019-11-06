@@ -12,9 +12,9 @@ import ListComponent from './components/shared/list';
 // import { USER_CREDENTIALS } from './constants/constants';
 // import LaboratoriaServices from './services/services';
 
-firebase.initializeApp(config);
-const publicationRef = firebase.database();
-const ref =	publicationRef.ref('/');
+// firebase.initializeApp(config);
+// const publicationRef = firebase.database();
+// const ref =	publicationRef.ref('/');
 const storage = window.localStorage;
 
 class App extends Component {
