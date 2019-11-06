@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../../styles/form.css';
 
-const FormComponent = ({ newClient = {} }) => {
+const FormComponent = ({ newClient = {}, addCLient = () => {}, hiddenAddClient = () => {} }) => {
   return (
     <div className="main-new-client">
       <div className="row img-client">
@@ -10,31 +10,31 @@ const FormComponent = ({ newClient = {} }) => {
         <div class="form-group row">
     <label for="colFormLabel" class="col-sm-2 col-form-label">Nombres</label>
     <div class="col-sm-10">
-      <input type="email" class="form-control" id="colFormLabel" placeholder="col-form-label"/>
+      <input type="text" class="form-control" value={newClient.name} id="colFormLabel" placeholder="col-form-label"/>
     </div>
   </div>
   <div class="form-group row">
     <label for="colFormLabel" class="col-sm-2 col-form-label">Apellidos</label>
     <div class="col-sm-10">
-      <input type="email" class="form-control" id="colFormLabel" placeholder="col-form-label"/>
+      <input type="text" class="form-control" value={newClient.name} id="colFormLabel" placeholder="col-form-label"/>
     </div>
   </div>
   <div class="form-group row">
     <label for="colFormLabel" class="col-sm-2 col-form-label">Edad</label>
     <div class="col-sm-10">
-      <input type="email" class="form-control" id="colFormLabel" placeholder="col-form-label"/>
+      <input type="number" class="form-control" value={newClient.age} id="colFormLabel" placeholder="col-form-label"/>
     </div>
   </div>
   <div class="form-group row">
     <label for="colFormLabel" class="col-sm-2 col-form-label">Fecha de nacimiento</label>
     <div class="col-sm-10">
-      <input type="date" class="form-control" id="colFormLabel" placeholder="col-form-label"/>
+      <input type="date" class="form-control" value={newClient.date} id="colFormLabel" placeholder="col-form-label"/>
     </div>
   </div>
-            <div className="row buttons">
-              <button class="add-client">AGREGAR</button>
-              <button class="add-client">CANCELAR</button>
-            </div>  
+      <div className="row">
+        <button class="col-5" onClick={addCLient}>AGREGAR</button>
+        <button class="col-5" onClick={hiddenAddClient}>CANCELAR</button>
+      </div>  
     </div>
   )
 }

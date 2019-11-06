@@ -4,7 +4,8 @@ import './App.css';
 // import HomeComponent from './components/home';
 import firebase from 'firebase';
 import { 
-
+	showAddClient,
+	hiddenAddClient
 } from './redux/actions';
 import config from './config';
 import HomeComponent from './components/home';
@@ -58,7 +59,12 @@ class App extends Component {
 		}
 		return null;
 	}
-
+	showAddClientForm = () => {
+		return this.props.showAddClient()
+	}
+	hiddenAddClientForm = () => {
+		return this.props.hiddenAddClient()
+	}
 	// deletePublication = (publication) => {
 	// 	const service = new LaboratoriaServices(ref);
 
@@ -69,17 +75,17 @@ class App extends Component {
 
 	
   render() {
-    // const {} = this.props;
+    const { client, showAdd } = this.props;
 
 		return (
 			<div className="App container-fluid" 
 			>
         <div className="row">
           <div className="col-6">            
-            <HomeComponent />
+            <HomeComponent newClient={client} showAddClient={showAdd} hiddenAddClient={this.hiddenAddClientForm} />
             <div className="row buttons">
-              <button class="add-client">AGREGAR CLIENTE</button>
-              <button class="add-client">CANCELAR</button>
+              <button class="add-client" onClick={this.showAddClientForm}>AGREGAR CLIENTE</button>
+              {/* <button class="add-client" onClick={this.toggleAddClient}>CANCELAR</button> */}
             </div>
           </div>
           <div className="col-6">
@@ -93,13 +99,15 @@ class App extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    // user: state.laboratoria.user,
+		client: state.intercorp.client,
+		showAdd: state.intercorp.showAdd
   } 
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-  	// loginUser: (user, password) => { dispatch(login(user, password)) },
+		showAddClient: () => { dispatch(showAddClient()) },
+		hiddenAddClient: () => { dispatch(hiddenAddClient()) },
     }
 }
 
