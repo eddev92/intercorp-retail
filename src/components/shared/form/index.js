@@ -6,25 +6,25 @@ const FormComponent = ({ newClient = {}, hiddenAddClient = () => {}, handleChang
     <div className="main-new-client">
           <h5>REGISTRO DE CLIENTE</h5>
         <div class="form-group row">
-    <label for="colFormLabel" class="col-sm-2 col-form-label">Nombres</label>
+    <label htmlFor="colFormLabel" class="col-sm-2 col-form-label">Nombres</label>
     <div class="col-sm-10">
       <input type="text" class="form-control" onChange={handleChange.bind(this)} value={newClient.names} id="names" placeholder=""/>
     </div>
   </div>
   <div class="form-group row">
-    <label for="colFormLabel" class="col-sm-2 col-form-label">Apellidos</label>
+    <label htmlFor="colFormLabel" class="col-sm-2 col-form-label">Apellidos</label>
     <div class="col-sm-10">
       <input type="text" class="form-control" onChange={handleChange.bind(this)} value={newClient.lastNames} id="lastNames" placeholder=""/>
     </div>
   </div>
   <div class="form-group row">
-    <label for="colFormLabel" class="col-sm-2 col-form-label">Edad</label>
+    <label htmlFor="colFormLabel" class="col-sm-2 col-form-label">Edad</label>
     <div class="col-sm-10">
       <input type="number" maxLength={2} class="form-control" onChange={handleChange.bind(this)} value={newClient.age} id="age" placeholder=""/>
     </div>
   </div>
   <div class="form-group row">
-    <label for="colFormLabel" class="col-sm-2 col-form-label">Fecha de nacimiento</label>
+    <label htmlFor="colFormLabel" class="col-sm-2 col-form-label">Fecha de nacimiento</label>
     <div class="col-sm-10">
       <input type="date" class="form-control" onChange={handleChange.bind(this)} value={newClient.date} id="date" placeholder=""/>
     </div>
