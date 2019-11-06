@@ -77,6 +77,7 @@ class App extends Component {
 		return this.props.showAddClient()
 	}
 	hiddenAddClientForm = () => {
+		this.props.resetValues();
 		return this.props.hiddenAddClient()
 	}
 	addClient = () => {
@@ -85,6 +86,9 @@ class App extends Component {
 			this.props.client.lastNames &&
 			this.props.client.age &&
 			this.props.client.date) {
+				if (this.props.client.age > 76) {
+					return alert("Edad no puede superar los 76 años para registrarse como cliente TITULAR")
+				}
 				const service = new IntercorpRetailServices(ref);
 				
 				this.props.resetValues();
